@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="/html/css/phone.css" />
+        <title>Windows Phone</title>
+
+        <style>
+            button {
+                width: 75%;
+                height: 50px;
+            }
+
+            #imageResult {
+                width: 100%;
+                visibility: hidden;
+            } 
+        </style>
+
+    </head>
+    <body>
+        <div>
+            <p>Camera WAT</p>
+        </div>
+
+        <button id="showCamera" type="button">Show Camera Dialog</button>
+        <img id="imageResult" src=""/>
+
+        <script type="text/javascript" defer="defer">
+
+            (function () {
+
+                document.getElementById("showCamera").addEventListener("click", function () {
+                    //We just have to fire an event such that the other side can pick it up.
+                    //Now we could pass something along and parse it but in our case we just have the one item we're trying to pop.
+                    window.external.notify("");
+                }, false);
+
+                var imageResult = document.getElementById("imageResult");
+
+                //This is the function that will get called by the XAML side
+                function displayImage(imageName) {
+                    imageResult.src = "/" + imageName;
+                    imageResult.style.visibility = "visible";
+                };
+
+                window.displayImage = displayImage;
+
+            })(window);
+
+        </script>
+    </body>
+</html>
